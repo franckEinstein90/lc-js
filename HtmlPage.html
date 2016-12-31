@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ACE in Action</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style type="text/css" media="screen">
+        #editor1 {
+            width:100%;
+            height:300px;
+        }
+        #editor2{
+            width:100%;
+            height:300px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href=" Documentation.html">Documentation</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="col-sm-8" style="background-color:white;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-primary">Normal Editor</button>
+                        <button type="button" class="btn btn-primary">Vim Editor</button>
+                    </div>
+      
+</div>
+                <div class="panel-body">
+                   <div id="editor1"></div>
+                            <form>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <button class=" btn btn-primary btn-block">run</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+           
+
+                <div class="col-sm-4" style="background-color:white;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Context</div>
+                        <div class="panel-body">
+                            <div id="editor2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="./build/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+            <script>
+                var editor = ace.edit("editor1");
+                editor.setTheme("ace/theme/monokai");
+                editor.getSession().setMode("ace/mode/javascript");
+                editor.setKeyboardHandler("ace/keyboard/vim");
+            </script>
+            <script>
+                var editor = ace.edit("editor2");
+                editor.setTheme("ace/theme/monokai");
+                editor.getSession().setMode("ace/mode/javascript");
+            </script>
+</body>
+</html>
