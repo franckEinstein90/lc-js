@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    BOOL:X-X-X
+    ext >:NUM-NUM-BOOL
+    > 10 <> 3 5
+
+    //or, alternatively
+    import NUM
+    > 10 <> "Greater than 10" "Smaller than 10"
+
+    concat "input is " (> <> 10 "greater than 10" "smaller than 10")
+
+    which is really syntactic sugar for:
+    xNUM > 10 x 3 5
+
+    reversing a string:
+    xSTRING.rev x
+    or
+    rev<>
+
+    -Types are upper case
+    -Type variables have
+    only one letter
+    -<num>
+        indicates that
+        a variable of type num
+        is read from stdin.
+</body>
+</html>

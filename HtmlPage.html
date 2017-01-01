@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>ACE in Action</title>
+    <title>System F interpreter</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -45,13 +45,13 @@
 </div>
                 <div class="panel-body">
                    <div id="editor1"></div>
-                            <form>
+                          
                                 <div class="panel panel-default">
                                     <div class="panel-body">
-                                        <button class=" btn btn-primary btn-block">run</button>
+                                        <button id ="submit_code" class=" btn btn-primary btn-block">run</button>
                                     </div>
                                 </div>
-                            </form>
+                          
                         </div>
                     </div>
             </div>
@@ -68,16 +68,26 @@
             </div>
 
             <script src="./build/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-            <script>
-                var editor = ace.edit("editor1");
-                editor.setTheme("ace/theme/monokai");
-                editor.getSession().setMode("ace/mode/javascript");
-                editor.setKeyboardHandler("ace/keyboard/vim");
-            </script>
-            <script>
-                var editor = ace.edit("editor2");
-                editor.setTheme("ace/theme/monokai");
-                editor.getSession().setMode("ace/mode/javascript");
+    <script src="./js/tokenizer.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+                var prog_editor = ace.edit("editor1");
+                prog_editor.setTheme("ace/theme/monokai");
+                prog_editor.getSession().setMode("ace/mode/javascript");
+                prog_editor.setKeyboardHandler("ace/keyboard/vim");
+                var lex = new Lexer;
+                var editor2 = ace.edit("editor2");
+                editor2.setTheme("ace/theme/monokai");
+                document.getElementById("submit_code").addEventListener("click", function () {
+                    var input = prog_editor.getValue();
+                    lex.input(input);
+                    var current_token = lex.token();
+                    var out_str = "";
+                    while (current_token) {
+                        out_str += current_token.name + "\n" ;
+                        current_token = lex.token();
+                    }
+                    editor2.setValue(out_str);
+                });
             </script>
 </body>
 </html>
