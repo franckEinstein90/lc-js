@@ -16,7 +16,7 @@ if (process.argv[2] === '--ast') {
 
 const source = fs.readFileSync(filename).toString();
 
-const lexer = new Lexer(source);
+cost lexer = new Lexer(source);
 const parser = new Parser(lexer);
 const ast = parser.parse();
 

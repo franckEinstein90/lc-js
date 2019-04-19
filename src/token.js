@@ -1,22 +1,23 @@
-class Token {
-  /**
-   * type should be one of the valid token types list below, and value is an
-   * optional value that can carry any extra information necessary for a given
-   * token type. (e.g. the matched string for an identifier)
-   */
-  constructor(type, value) {
-    this.type = type;
-    this.value = value;
-  }
-};
 
-[
-  'EOF', // we augment the tokens with EOF, to indicate the end of the input.
-  'LAMBDA',
-  'LPAREN',
-  'RPAREN',
-  'LCID',
-  'DOT',
-].forEach(token => Token[token] = token);
+const Token = (function(){
+    let tok = function(info){this.info = info};
+    return {
+        EOF     : function (info){tok.call(this, info)},
+        LAMBDA  : function (info){tok.call(this, info)},
+        RPAREN  : function (info){tok.call(this, info)},
+        LPAREN  : function (info){tok.call(this, info)},
+        LCID    : function (info){tok.call(this, info)},
+        DOT     : function (info){tok.call(this, info)},
 
-module.exports = Token;
+        _match  : function (str) {
+            if      (/^l$/.test(str))       {return new Token.LAMBDA}
+            else if (/^\.$/.test(str))      {return new Token.DOT}
+            else if (/^\($/.test(str))      {return new Token.LPAREN}
+            else if (/^\)$/.test(str))      {return new Token.RPAREN}
+            else if (/^[a-z]+$/.test(str))  {return new Token.LCID(str)}
+        }
+    }
+})();
+
+
+module.exports = {Token};

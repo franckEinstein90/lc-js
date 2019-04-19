@@ -1,5 +1,24 @@
 const Token = require('./token');
 
+
+const Lexer = (function(){
+    let _input = undefined, 
+      _index = undefined,
+      _token = undefined,
+      _nextStr() = function(){},
+      _nextToken() = function(){};
+ 
+
+    return {
+       set(programText) : function(){
+        _input = programText;
+        _index = 0;
+        } 
+
+    };
+})();
+
+
 class Lexer {
   constructor(input) {
     this._input = input;
@@ -11,12 +30,18 @@ class Lexer {
   /**
    * Return the next char of the input or '\0' if we've reached the end
    */
-  _nextChar() {
+  _nextStr() {
     if (this._index >= this._input.length) {
       return '\0';
     }
-
-    return this._input[this._index++];
+    if (/^l\./.test(...)){str = "l"; tokLength = 1;}
+    else if (/^\./.test(...)){str = "."; tokLength = 1;}
+    else if (/^\(/.test(...)){str = "("; tokLength = 1;}
+    else if (/^\)/.test(...)){str = ")"; tokLength = 1;}
+    else if (/^[a-z]+/.test(...)){str = ...; tokLength = ...;}
+     
+    this._index += tokenLength;
+    return str;
   }
 
   /**
@@ -26,29 +51,9 @@ class Lexer {
    * up the state for the helper functions.
    */
   _nextToken() {
-    let c;
-    do {
-      c = this._nextChar();
-    } while (/\s/.test(c));
-
-    switch (c) {
-      case 'λ':
-      case '\\':
-        this._token = new Token(Token.LAMBDA);
-        break;
-
-      case '.':
-        this._token = new Token(Token.DOT);
-        break;
-
-      case '(':
-        this._token = new Token(Token.LPAREN);
-        break;
-
-      case ')':
-        this._token = new Token(Token.RPAREN);
-        break;
-
+      c = this._nextStr();
+      this._token = Token._match(c);
+      
       case '\0':
         this._token = new Token(Token.EOF);
         break;
@@ -63,7 +68,7 @@ class Lexer {
 
           // put back the last char which is not part of the identifier
           this._index--;
-
+//assign(Token.LCID(str));
           this._token = new Token(Token.LCID, str);
         } else {
           this.fail();
