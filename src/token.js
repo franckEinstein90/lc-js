@@ -19,5 +19,27 @@ const Token = (function(){
     }
 })();
 
+const Tokenizer = (function() {
+    return {
+        tokenize: function(tokenArray) {
+            let tagged = tokenArray.map(x=>"<tok>"+x+"</tok>").join('');
+            return "<Program>" + tagged + "</Program>";
+        },
+        preProcess: function(programText) {
+            //1. separate make sure every '.' is surrounded by spaces
+            let pre1 = programText.replace(/[()\.]/gi, x => " " + x + " ");
+            
+            //returns an array of symbols
+            return pre1.trim().split(/\s+/);
+        },
+        processProgramText: function(programText) {
+            let preProcessedProgram = Tokenizer.preProcess(programText),
+                tokenized = Tokenizer.tokenize(preProcessedProgram);
+            return tokenized;
+        }
+    };
+})();
 
-module.exports = {Token};
+
+
+module.exports = {Token, Tokenizer};
