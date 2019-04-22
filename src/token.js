@@ -26,13 +26,13 @@ const Tokenizer = (function() {
             return "<Program>" + tagged + "</Program>";
         },
         preProcess: function(programText) {
-            //1. separate make sure every '.' is surrounded by spaces
-            let pre1 = programText.replace(/[()\.]/gi, x => " " + x + " ");
+            //1. separate symbols by surrounding by spaces
+            let pre1 = programText.replace(/[()\.\:]/gi, x => " " + x + " ");
             
             //returns an array of symbols
             return pre1.trim().split(/\s+/);
         },
-        processProgramText: function(programText) {
+        process: function(programText) {
             let preProcessedProgram = Tokenizer.preProcess(programText),
                 tokenized = Tokenizer.tokenize(preProcessedProgram);
             return tokenized;
